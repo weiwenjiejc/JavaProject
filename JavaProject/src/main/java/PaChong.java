@@ -30,6 +30,7 @@ public class PaChong {
         httpURLConnection.setRequestProperty("Connection","Keep-Alive");
         httpURLConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
         httpURLConnection.setRequestProperty("Accept","*/*");
+        httpURLConnection.setRequestProperty("Charset","UTF-8");
         try {
             if (httpURLConnection.getResponseCode() == 200){
                 InputStream inputStream = httpURLConnection.getInputStream();
@@ -41,6 +42,7 @@ public class PaChong {
                 }
                 byte[] ResponseBytes = byteArrayOutputStream.toByteArray();
                 byteArrayOutputStream.close();
+                System.out.println(ResponseBytes.toString());
                 String ResponseString = new String(ResponseBytes,"utf-8");
                 System.out.println(ResponseString);
             }
