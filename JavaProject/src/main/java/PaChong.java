@@ -1,6 +1,6 @@
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,16 +34,38 @@ public class PaChong {
         try {
             if (httpURLConnection.getResponseCode() == 200){
                 InputStream inputStream = httpURLConnection.getInputStream();
-                byte[] buffer = new byte[1024];
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                int length = 0;
-                while((length = inputStream.read(buffer))!= -1){
-                    byteArrayOutputStream.write(buffer,0,length);
+                //byte[] buffer = new byte[1024];
+                //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                //int length = 0;
+
+
+                /*是字节流与字符流之间的桥梁，
+                能将字节流输出为字符流，
+                并且能为字节流指定字符集，可输出一个个的字符
+                 */
+                /*字节流转为字符流
+
+                 */
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//                while((length = inputStream.read(buffer))!= -1){
+//                    byteArrayOutputStream.write(buffer,0,length);
+//                    System.out.println(new String(buffer,"UTF-8"));
+//                }
+                StringBuffer stringBuffer = new StringBuffer();
+                String line = "";
+                while ((line = bufferedReader.readLine())!=null){
+                    stringBuffer.append(line);
                 }
-                byte[] ResponseBytes = byteArrayOutputStream.toByteArray();
-                byteArrayOutputStream.close();
-                System.out.println(ResponseBytes.toString());
-                String ResponseString = new String(ResponseBytes,"utf-8");
+                inputStream.close();
+                inputStreamReader.close();
+                bufferedReader.close();
+                String ResponseString = stringBuffer.toString();
+                //byte[] ResponseBytes = byteArrayOutputStream.toByteArray();
+                //byteArrayOutputStream.close();
+//                System.out.println(ResponseBytes.toString());
+                //String ResponseString = new String(ResponseBytes,"utf-8");
                 System.out.println(ResponseString);
             }
         } catch (IOException e) {
