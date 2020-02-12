@@ -1,10 +1,7 @@
 
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 
 public class PaChong {
 
@@ -31,6 +28,7 @@ public class PaChong {
         httpURLConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
         httpURLConnection.setRequestProperty("Accept","*/*");
         httpURLConnection.setRequestProperty("Charset","UTF-8");
+        //httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         try {
             if (httpURLConnection.getResponseCode() == 200){
                 InputStream inputStream = httpURLConnection.getInputStream();
@@ -66,7 +64,12 @@ public class PaChong {
                 //byteArrayOutputStream.close();
 //                System.out.println(ResponseBytes.toString());
                 //String ResponseString = new String(ResponseBytes,"utf-8");
+                String decode = URLDecoder.decode(ResponseString, "utf-8");
+                System.out.println(decode);
                 System.out.println(ResponseString);
+            }else {
+                System.out.println(httpURLConnection.getResponseCode());
+                System.out.println(httpURLConnection.getResponseMessage());
             }
         } catch (IOException e) {
             e.printStackTrace();
