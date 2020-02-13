@@ -1,6 +1,5 @@
 package cn.guardcode;
 
-import javax.print.attribute.standard.RequestingUserName;
 import java.util.List;
 
 public class Bean {
@@ -19,11 +18,11 @@ public class Bean {
         private String cover_x;
         private String title;
         private String url;
-        private boolean playable;
+        private String playable;
         private String cover;
-        private String id;
+        private Integer id;
         private String cover_y;
-        private boolean is_new;
+        private String is_new;
 
         public String getRate() {
             return rate;
@@ -57,11 +56,11 @@ public class Bean {
             this.url = url;
         }
 
-        public boolean isPlayable() {
+        public String isPlayable() {
             return playable;
         }
 
-        public void setPlayable(boolean playable) {
+        public void setPlayable(String playable) {
             this.playable = playable;
         }
 
@@ -73,11 +72,11 @@ public class Bean {
             this.cover = cover;
         }
 
-        public String getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -89,11 +88,11 @@ public class Bean {
             this.cover_y = cover_y;
         }
 
-        public boolean isIs_new() {
+        public String isIs_new() {
             return is_new;
         }
 
-        public void setIs_new(boolean is_new) {
+        public void setIs_new(String is_new) {
             this.is_new = is_new;
         }
     }

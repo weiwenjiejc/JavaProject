@@ -7,18 +7,73 @@ import java.net.*;
 
 public class PaChong {
 
+    void initTag() {
+        //按热度排序,按时间排序,按评价排序
+        String[] sort={"recommend","time","rank"};
+
+        String[] tags = {"热门", "最新", "经典", "可播放", "豆瓣高分", "冷门佳片", "华语", "欧美", "韩国", "日本", "动作", "喜剧", "爱情", "科幻", "悬疑", "恐怖", "动画"};
+        System.out.println(tags[6]);
+    }
+    /*
+    工厂方法
+    可以用来代替默认参数
+     */
+    public class MovieBuilder{
+
+    }
+    String searchMovie(String url, String type, String tag, String sort, String page_limit,String page_start){
+        if(type==null){
+            type="movie";
+        }
+        if (tag==null){
+            tag="华语";
+        }
+        if (sort==null){
+            sort="recommend";
+        }
+        if (page_limit==null){
+            page_limit="20";
+        }
+        if (url==null){
+            url = "https://movie.douban.com/j/search_subjects?" +
+                    "type="+type+
+                    "&tag="+tag+
+                    "&sort="+sort+
+                    "&page_limit="+page_limit+
+                    "&page_start="+page_start;
+        }
+        System.out.println(url);
+        return url;
+    }
+    /*
+    public static void main(String[] args) {
+        searchMovie(null,null,null,null,"100","0");
+    }*/
+    ///*
     public static void main(String[] args) {
         PaChong paChong = new PaChong();
         //paChong.getJson("https://douban.uieee.com/v2/movie/in_theaters");
         //paChong.getJson("https://douban.uieee.com/v2/movie/search");
         String json = paChong.getJson("https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=20");
-        JsonToBean jsonToBean = new JsonToBean();
-        jsonToBean.fun(json);
-    }
+        boolean flag = true;
+        int index = 0;
+        while (flag){
+            String url = paChong.searchMovie(null,null,null,null,"100",Integer.toString(index));
 
-    String getJson(String urlParam){
+            String jsonString = paChong.getJson(url);
+            if (jsonString==null)
+                break;
+            index++;
+            JsonToBean jsonToBean = new JsonToBean();
+            jsonToBean.fun(json);
+        }
+
+    }
+    //*/
+
+    String getJson(String urlParam) {
         URL url = null;
-        String ResponseString= null;
+        String ResponseString = null;
         try {
             url = new URL(urlParam);
         } catch (MalformedURLException e) {
@@ -31,13 +86,13 @@ public class PaChong {
             e.printStackTrace();
         }
         HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
-        httpURLConnection.setRequestProperty("Connection","Keep-Alive");
-        httpURLConnection.setRequestProperty("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
-        httpURLConnection.setRequestProperty("Accept","*/*");
-        httpURLConnection.setRequestProperty("Charset","UTF-8");
+        httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+        httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36");
+        httpURLConnection.setRequestProperty("Accept", "*/*");
+        httpURLConnection.setRequestProperty("Charset", "UTF-8");
         //httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         try {
-            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 //byte[] buffer = new byte[1024];
                 //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -60,7 +115,7 @@ public class PaChong {
 //                }
                 StringBuffer stringBuffer = new StringBuffer();
                 String line = "";
-                while ((line = bufferedReader.readLine())!=null){
+                while ((line = bufferedReader.readLine()) != null) {
                     stringBuffer.append(line);
                 }
                 inputStream.close();
@@ -74,7 +129,7 @@ public class PaChong {
                 String decode = URLDecoder.decode(ResponseString, "utf-8");
                 System.out.println(decode);
                 System.out.println(ResponseString);
-            }else {
+            } else {
                 System.out.println(httpURLConnection.getResponseCode());
                 System.out.println(httpURLConnection.getResponseMessage());
             }
