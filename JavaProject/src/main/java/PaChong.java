@@ -7,11 +7,14 @@ public class PaChong {
 
     public static void main(String[] args) {
         PaChong paChong = new PaChong();
-        paChong.getJson("https://douban.uieee.com/v2/movie/in_theaters");
+        //paChong.getJson("https://douban.uieee.com/v2/movie/in_theaters");
+        //paChong.getJson("https://douban.uieee.com/v2/movie/search");
+        String json = paChong.getJson("https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=20");
     }
 
-    void getJson(String urlParam){
+    String getJson(String urlParam){
         URL url = null;
+        String ResponseString= null;
         try {
             url = new URL(urlParam);
         } catch (MalformedURLException e) {
@@ -30,7 +33,7 @@ public class PaChong {
         httpURLConnection.setRequestProperty("Charset","UTF-8");
         //httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         try {
-            if (httpURLConnection.getResponseCode() == 200){
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
                 InputStream inputStream = httpURLConnection.getInputStream();
                 //byte[] buffer = new byte[1024];
                 //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -59,7 +62,7 @@ public class PaChong {
                 inputStream.close();
                 inputStreamReader.close();
                 bufferedReader.close();
-                String ResponseString = stringBuffer.toString();
+                ResponseString = stringBuffer.toString();
                 //byte[] ResponseBytes = byteArrayOutputStream.toByteArray();
                 //byteArrayOutputStream.close();
 //                System.out.println(ResponseBytes.toString());
@@ -74,5 +77,6 @@ public class PaChong {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return ResponseString;
     }
 }
