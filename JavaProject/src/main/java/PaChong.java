@@ -1,9 +1,12 @@
 
 
+import cn.guardcode.Bean;
+import cn.guardcode.dao.LoadMovie;
 import company.JsonToBean;
 
 import java.io.*;
 import java.net.*;
+import java.util.List;
 
 public class PaChong {
 
@@ -52,20 +55,40 @@ public class PaChong {
     ///*
     public static void main(String[] args) {
         PaChong paChong = new PaChong();
+
+        //每次获得记录条数
+        String page_limit = "300";
         //paChong.getJson("https://douban.uieee.com/v2/movie/in_theaters");
         //paChong.getJson("https://douban.uieee.com/v2/movie/search");
-        String json = paChong.getJson("https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=20");
+        //String json = paChong.getJson("https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=20");
         boolean flag = true;
         int index = 0;
         while (flag){
-            String url = paChong.searchMovie(null,null,null,null,"100",Integer.toString(index));
+            String url = paChong.searchMovie(null,null,null,null,page_limit,Integer.toString(index));
 
             String jsonString = paChong.getJson(url);
             if (jsonString==null)
                 break;
-            index++;
             JsonToBean jsonToBean = new JsonToBean();
-            jsonToBean.fun(json);
+            List<Bean.Movie> fun = jsonToBean.fun(jsonString);
+
+            if (fun == null)
+                break;
+            LoadMovie loadMovie = new LoadMovie();
+            loadMovie.getMovie(fun);
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (fun.size()<Integer.parseInt(page_limit)){
+                break;
+            }
+            index+=Integer.parseInt(page_limit);
+            System.out.println("当前索引值:"+index);
+            //测试用
+            /*if (index>0)
+                break;*/
         }
 
     }

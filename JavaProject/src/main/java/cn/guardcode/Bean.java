@@ -56,7 +56,7 @@ public class Bean {
             this.url = url;
         }
 
-        public String isPlayable() {
+        public String getPlayable() {
             return playable;
         }
 
@@ -88,7 +88,7 @@ public class Bean {
             this.cover_y = cover_y;
         }
 
-        public String isIs_new() {
+        public String getIs_new() {
             return is_new;
         }
 
