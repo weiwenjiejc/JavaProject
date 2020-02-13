@@ -1,5 +1,7 @@
 
 
+import company.JsonToBean;
+
 import java.io.*;
 import java.net.*;
 
@@ -10,6 +12,8 @@ public class PaChong {
         //paChong.getJson("https://douban.uieee.com/v2/movie/in_theaters");
         //paChong.getJson("https://douban.uieee.com/v2/movie/search");
         String json = paChong.getJson("https://movie.douban.com/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=20");
+        JsonToBean jsonToBean = new JsonToBean();
+        jsonToBean.fun(json);
     }
 
     String getJson(String urlParam){
