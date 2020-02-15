@@ -15,7 +15,7 @@ public class MyDB {
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
-        source.setJdbcUrl("jdbc:mysql://localhost:3306/recommender?useUnicode=true&characterEncoding=utf-8");
+        source.setJdbcUrl("jdbc:mysql://localhost:3306/recommender?useUnicode=true&characterEncoding=utf-8&autoReconnect=true");
         source.setUser("root");
         source.setPassword("toor");
     }
