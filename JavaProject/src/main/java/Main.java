@@ -1,42 +1,48 @@
+import cn.guardcode.Bean;
 import cn.guardcode.JavaUrl;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.*;
+import cn.guardcode.bean.Movie;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class Main {
-    class Movie{
 
-    }
+
     public static void main(String[] args) {
         /*JavaUrl javaUrl = new JavaUrl();
         String url = javaUrl.getUrl(0);
         String json = javaUrl.getJson(url);
         System.out.println(json);*/
         String json = "{\"data\":[{\"directors\":[\"徐峥\"],\"rate\":\"5.9\",\"cover_x\":1080,\"star\":\"30\",\"title\":\"囧妈\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/30306570\\/\",\"casts\":[\"徐峥\",\"袁泉\",\"郭京飞\",\"黄景瑜\",\"贾冰\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2581835383.jpg\",\"id\":\"30306570\",\"cover_y\":1542},{\"directors\":[\"周申\",\"刘露\"],\"rate\":\"7.4\",\"cover_x\":1000,\"star\":\"35\",\"title\":\"半个喜剧\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/30269016\\/\",\"casts\":[\"任素汐\",\"吴昱翰\",\"刘迅\",\"汤敏\",\"赵海燕\"],\"cover\":\"https://img9.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2576482356.jpg\",\"id\":\"30269016\",\"cover_y\":1500},{\"directors\":[\"曾国祥\"],\"rate\":\"8.3\",\"cover_x\":5906,\"star\":\"40\",\"title\":\"少年的你\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/30166972\\/\",\"casts\":[\"周冬雨\",\"易烊千玺\",\"尹昉\",\"周也\",\"吴越\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2572166063.jpg\",\"id\":\"30166972\",\"cover_y\":8268},{\"directors\":[\"饺子\"],\"rate\":\"8.5\",\"cover_x\":5594,\"star\":\"45\",\"title\":\"哪吒之魔童降世\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26794435\\/\",\"casts\":[\"吕艳婷\",\"囧森瑟夫\",\"瀚墨\",\"陈浩\",\"绿绮\"],\"cover\":\"https://img9.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2563780504.jpg\",\"id\":\"26794435\",\"cover_y\":8268},{\"directors\":[\"文牧野\"],\"rate\":\"9.0\",\"cover_x\":2810,\"star\":\"45\",\"title\":\"我不是药神\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26752088\\/\",\"casts\":[\"徐峥\",\"王传君\",\"周一围\",\"谭卓\",\"章宇\"],\"cover\":\"https://img9.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2561305376.jpg\",\"id\":\"26752088\",\"cover_y\":3937},{\"directors\":[\"郭帆\"],\"rate\":\"7.9\",\"cover_x\":1786,\"star\":\"40\",\"title\":\"流浪地球\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26266893\\/\",\"casts\":[\"屈楚萧\",\"吴京\",\"李光洁\",\"吴孟达\",\"赵今麦\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2545472803.jpg\",\"id\":\"26266893\",\"cover_y\":2500},{\"directors\":[\"陈凯歌\",\"张一白\",\"管虎\",\"薛晓路\",\"徐峥\",\"宁浩\",\"文牧野\"],\"rate\":\"7.8\",\"cover_x\":5906,\"star\":\"40\",\"title\":\"我和我的祖国\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/32659890\\/\",\"casts\":[\"黄渤\",\"张译\",\"韩昊霖\",\"杜江\",\"葛优\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2567998580.jpg\",\"id\":\"32659890\",\"cover_y\":8268},{\"directors\":[\"刘伟强\"],\"rate\":\"6.7\",\"cover_x\":1286,\"star\":\"35\",\"title\":\"中国机长\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/30295905\\/\",\"casts\":[\"张涵予\",\"欧豪\",\"杜江\",\"袁泉\",\"张天爱\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2568258113.jpg\",\"id\":\"30295905\",\"cover_y\":1800},{\"directors\":[\"陈凯歌\"],\"rate\":\"9.6\",\"cover_x\":600,\"star\":\"50\",\"title\":\"霸王别姬\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/1291546\\/\",\"casts\":[\"张国荣\",\"张丰毅\",\"巩俐\",\"葛优\",\"英达\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2561716440.jpg\",\"id\":\"1291546\",\"cover_y\":889},{\"directors\":[\"刘镇伟\"],\"rate\":\"9.2\",\"cover_x\":3645,\"star\":\"45\",\"title\":\"大话西游之大圣娶亲\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/1292213\\/\",\"casts\":[\"周星驰\",\"吴孟达\",\"朱茵\",\"蔡少芬\",\"蓝洁瑛\"],\"cover\":\"https://img9.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2455050536.jpg\",\"id\":\"1292213\",\"cover_y\":5103},{\"directors\":[\"刘镇伟\"],\"rate\":\"9.0\",\"cover_x\":1280,\"star\":\"45\",\"title\":\"大话西游之月光宝盒\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/1299398\\/\",\"casts\":[\"周星驰\",\"吴孟达\",\"罗家英\",\"蓝洁瑛\",\"莫文蔚\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2561721372.jpg\",\"id\":\"1299398\",\"cover_y\":1830},{\"directors\":[\"闫非\",\"彭大魔\"],\"rate\":\"6.5\",\"cover_x\":679,\"star\":\"35\",\"title\":\"西虹市首富\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/27605698\\/\",\"casts\":[\"沈腾\",\"宋芸桦\",\"张一鸣\",\"张晨光\",\"常远\"],\"cover\":\"https://img1.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2529206747.jpg\",\"id\":\"27605698\",\"cover_y\":950},{\"directors\":[\"杨子\"],\"rate\":\"6.0\",\"cover_x\":6184,\"star\":\"30\",\"title\":\"宠爱\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/33417046\\/\",\"casts\":[\"于和伟\",\"吴磊\",\"张子枫\",\"钟汉良\",\"杨子姗\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2577327922.jpg\",\"id\":\"33417046\",\"cover_y\":8657},{\"directors\":[\"姜文\"],\"rate\":\"8.8\",\"cover_x\":1500,\"star\":\"45\",\"title\":\"让子弹飞\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/3742360\\/\",\"casts\":[\"姜文\",\"葛优\",\"周润发\",\"刘嘉玲\",\"陈坤\"],\"cover\":\"https://img1.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p1512562287.jpg\",\"id\":\"3742360\",\"cover_y\":2200},{\"directors\":[\"陈思诚\"],\"rate\":\"6.7\",\"cover_x\":1400,\"star\":\"35\",\"title\":\"唐人街探案2\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26698897\\/\",\"casts\":[\"王宝强\",\"刘昊然\",\"肖央\",\"刘承羽\",\"尚语贤\"],\"cover\":\"https://img1.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2512717519.jpg\",\"id\":\"26698897\",\"cover_y\":1960},{\"directors\":[\"林超贤\"],\"rate\":\"8.3\",\"cover_x\":1429,\"star\":\"40\",\"title\":\"红海行动\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26861685\\/\",\"casts\":[\"张译\",\"黄景瑜\",\"海清\",\"杜江\",\"蒋璐霞\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2514119443.jpg\",\"id\":\"26861685\",\"cover_y\":2000},{\"directors\":[\"周星驰\"],\"rate\":\"8.5\",\"cover_x\":2143,\"star\":\"45\",\"title\":\"功夫\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/1291543\\/\",\"casts\":[\"周星驰\",\"元秋\",\"元华\",\"黄圣依\",\"梁小龙\"],\"cover\":\"https://img1.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2219011938.jpg\",\"id\":\"1291543\",\"cover_y\":2993},{\"directors\":[\"韩寒\"],\"rate\":\"6.9\",\"cover_x\":7142,\"star\":\"35\",\"title\":\"飞驰人生\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/30163509\\/\",\"casts\":[\"沈腾\",\"黄景瑜\",\"尹正\",\"张本煜\",\"尹昉\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2542973862.jpg\",\"id\":\"30163509\",\"cover_y\":10000},{\"directors\":[\"饶晓志\"],\"rate\":\"8.1\",\"cover_x\":1429,\"star\":\"40\",\"title\":\"无名之辈\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/27110296\\/\",\"casts\":[\"陈建斌\",\"任素汐\",\"潘斌龙\",\"章宇\",\"王砚辉\"],\"cover\":\"https://img9.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2539661066.jpg\",\"id\":\"27110296\",\"cover_y\":2000},{\"directors\":[\"黄渤\"],\"rate\":\"7.1\",\"cover_x\":1080,\"star\":\"35\",\"title\":\"一出好戏\",\"url\":\"https:\\/\\/movie.douban.com\\/subject\\/26985127\\/\",\"casts\":[\"黄渤\",\"舒淇\",\"王宝强\",\"张艺兴\",\"于和伟\"],\"cover\":\"https://img3.doubanio.com\\/view\\/photo\\/s_ratio_poster\\/public\\/p2529571873.jpg\",\"id\":\"26985127\",\"cover_y\":1512}]}\n";
-        JSONObject jsonObject = JSONObject.parseObject(json);
-        JSONArray data = jsonObject.getJSONArray("data");
-        for (int i = 0; i < data.size(); i++){
-            JSONObject object = data.getJSONObject(i);
-            JSONArray directors = object.getJSONArray("directors");
-            System.out.println(directors.toJSONString());
-        }
-        //System.out.println(jsonArray.toString());
-        /*System.out.println(o.toString());
-        String jsonString = data.toJSONString();
-        System.out.println(jsonString);*/
 
-        /*System.out.println(json);
-        JsonParser jsonParser = new JsonParser();
-        JsonElement parse = jsonParser.parse(json);
-        //JsonObject jsonObject = new JsonObject();
-        JsonObject jsonObject = parse.getAsJsonObject();
-        JsonObject object = jsonObject.getAsJsonObject(json);
-        JsonArray data = object.getAsJsonArray("data");
-        for(int i = 0; i < data.size();i++){
-            JsonObject asJsonObject = data.get(i).getAsJsonObject();
-            JsonArray directors = asJsonObject.getAsJsonArray("directors");
-            String asString = directors.get(0).getAsString();
-            System.out.println(asString);
-        }*/
+        /*
+        json字符串转为json对象
+         */
+        JSONObject jsonObject = JSONObject.parseObject(json);
+
+        /*
+        json对象提取json数组
+         */
+        JSONArray data = jsonObject.getJSONArray("data");
+        for (int i = 0; i < data.size(); i++) {
+
+            JSONObject object = data.getJSONObject(i);
+
+            /*
+            json对象转json字符串
+             */
+            System.out.println(object.toJSONString());
+
+            /*
+            json对象转java对象
+             */
+            Movie movie = JSONObject.toJavaObject(object, Movie.class);
+
+            System.out.println(movie);
+        }
     }
 }
